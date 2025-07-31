@@ -1,0 +1,79 @@
+INCIDENT RESPONSE SYSTEM - DATA FLOW DIAGRAMS
+
+LEVEL 0 CONTEXT DIAGRAM
+───────────────────────────────────────
+   [USER]───────┐
+      1.Submit ▼
+  ┌───────────────┐
+  │ INCIDENT      │
+  │ RESPONSE      │←───[IT STAFF]
+  │ SYSTEM        │  5.Resolve
+  └───────┬───────┘
+    3.Alert│      │6.Store
+           ▼      ▼
+[NOTIFICATION]  [DATABASE]
+
+
+LEVEL 1 PROCESS FLOW
+───────────────────────────────────────
+[USER]→[REPORT]→[DETECT]→[TRIAGE]→[CONTAIN]
+           ↓        ↑        ↓        ↓
+        [TICKET DB]      [FORENSICS]  │
+                              ↓       │
+                         [ERADICATE]→[RECOVER]
+                              ↓           ↓
+                        [KNOWLEDGE]  [ARCHIVE DB]
+                              ▲           ▲
+                              │           │
+                         [IT STAFF]───────┘
+
+
+DETAILED LEVEL 1 FLOW
+───────────────────────────────────────
+
+[USER]
+  │ 1.1 Submit Report
+  ▼
+[REPORT INCIDENT]
+  │ 1.2 Create Ticket
+  ▼
+[TICKET DB (D1)]
+  ▲ │
+  │ │ 1.3 Raw Data
+  │ ▼
+  │ [DETECT & ANALYZE]
+  │   │ 2.1 Analyzed Data
+  │   ▼
+  │ [TRIAGE PROCESS]
+  │   │ 3.1 Containment Plan
+  │   ▼
+  │ [CONTAIN INCIDENT]
+  │   │ 3.2 Evidence
+  │   ▼
+  │ [FORENSICS ANALYSIS]
+  │   │ 4.1 Analysis Results
+  │   ▼
+  │ [ERADICATE THREAT]
+  │   │ 5.1 Clean System
+  │   ▼
+  │ [RECOVER SYSTEM]
+  │   │ 5.2 Recovery Data    5.3 Archive Data
+  │   ├─────────────────────┬─────────────────┐
+  │   ▼                     ▼                 ▼
+  │ [KNOWLEDGE BASE]    [USER NOTIFY]    [ARCHIVE DB]
+  │   (D3)                               (D2)
+  │   ▲                     ▲
+  │   │ 6.2 Query           │ 7.1 Updates
+  └───┴─────[IT STAFF]──────┘
+
+
+DATA STORES:
+D1 = TICKET DB (Active incidents)
+D2 = ARCHIVE DB (Historical data)
+D3 = KNOWLEDGE BASE (Lessons learned)
+
+EXTERNAL ENTITIES:
+- USER (Reports incidents)
+- IT STAFF (Manages response)
+- NOTIFICATION (Alert system)
+- DATABASE (Storage system)
